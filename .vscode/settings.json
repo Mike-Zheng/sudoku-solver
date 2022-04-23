@@ -1,0 +1,18 @@
+{
+    "eslint.validate": ["javascript", "javascriptreact", "vue", "typescript"],
+    "eslint.format.enable": true,
+    "eslint.alwaysShowStatus": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "eslint.autoFixOnSave": true
+    },
+    "stylelint.validate": [
+        "css",
+        "less",
+        "postcss",
+        "scss",
+        "vue",
+        "sass"
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
+}
