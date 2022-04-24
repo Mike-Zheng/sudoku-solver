@@ -1,41 +1,213 @@
 <script setup lang="ts">
-  import { useAppStore } from '@/store/modules/app'
-  import { framework } from './data'
+  import Sudoku from '@/utils/sudoku.js'
+  const getInitialBoard = () => {
+    return [...new Array(9)].map(() => [...new Array(9).fill('')])
+  }
+  const board = ref(getInitialBoard())
+  const boardRecord = ref(getInitialBoard())
 
-  const appStore = useAppStore()
-  const data = ref(framework)
+  const undo = () => {
+    board.value = boardRecord.value
+  }
 
+  const reset = () => {
+    board.value = getInitialBoard()
+    boardRecord.value = getInitialBoard()
+  }
+
+  const solve = () => {
+    boardRecord.value = [...board.value.map((item) => [...item])]
+    let boardProcessed = board.value.map((row) => row.map((item) => item || '.'))
+    console.log(boardProcessed)
+    let boardString = Sudoku.board_grid_to_string(boardProcessed)
+    console.log(boardString)
+    try {
+      let slove = Sudoku.solve(boardString)
+      if (!slove) {
+        throw new Error('wrong')
+      }
+      console.log(slove)
+      let sloveGrid = Sudoku.board_string_to_grid(slove)
+      console.log(sloveGrid)
+      board.value = sloveGrid
+    } catch (e) {
+      console.log(e)
+      reset()
+    }
+  }
+
+  const selectAll = (i: number, j: number) => {
+    let curX = i
+    let curY = j
+    window.setTimeout(function () {
+      ;(document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement).select()
+    }, 0)
+  }
+
+  const focusNext = (i: number, j: number, event: KeyboardEvent) => {
+    let curX = i
+    let curY = j
+    console.log(event.key)
+
+    switch (event.key) {
+      case 'Backspace':
+        if (board.value[j][i] !== '') {
+          board.value[j][i] = ''
+        } else {
+          if (curX > 0) {
+            curX--
+          } else if (curY > 0) {
+            curX = 8
+            curY--
+          } else {
+            curX = 8
+            curY = 8
+          }
+        }
+
+        break
+
+      case 'ArrowLeft':
+        // Left pressed
+        if (curX > 0) {
+          curX--
+        } else if (curY > 0) {
+          curX = 8
+          curY--
+        } else {
+          curX = 8
+          curY = 8
+        }
+        break
+      case 'ArrowRight':
+        // Right pressed
+        if (curX < 8) {
+          curX++
+        } else if (curY < 8) {
+          curX = 0
+          curY++
+        } else {
+          curX = 0
+          curY = 0
+        }
+        break
+      case 'ArrowUp':
+        // Up pressed
+        if (curY > 0) {
+          curY--
+        } else {
+          curY = 8
+        }
+        break
+      case 'ArrowDown':
+        // Down pressed
+        if (curY < 8) {
+          curY++
+        } else {
+          curY = 0
+        }
+        break
+      default:
+        if (i < 8) {
+          curX++
+        }
+        if (i >= 8 && j < 8) {
+          curX = 0
+          curY++
+        }
+        if (i == 8 && j == 8) {
+          // button foucs
+        } else {
+        }
+    }
+
+    window.setTimeout(function () {
+      ;(document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement).focus()
+      ;(document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement).select()
+    }, 0)
+  }
 </script>
 <template>
-  <div class="relative"
-    ><div class="inline-grid absolute pointer-events-none grid-rows-3 grid-cols-3 h-72 w-72">
-      <div class="h-full w-full border border-black" />
-      <div class="h-full w-full border border-black" />
-      <div class="h-full w-full border border-black" />
-      <div class="h-full w-full border border-black" />
-      <div class="h-full w-full border border-black" />
-      <div class="h-full w-full border border-black" />
-      <div class="h-full w-full border border-black" />
-      <div class="h-full w-full border border-black" />
-      <div class="h-full w-full border border-black" />
+  <div>
+    <div class="relative" style="height: 600px; width: 600px">
+      <div class="inline-grid absolute pointer-events-none grid-rows-3 grid-cols-3 h-full w-full">
+        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-black" />
+      </div>
+      <div id="userBoard" class="inline-grid grid-rows-9 grid-cols-9 h-full w-full">
+        <template v-for="(col, y) in board">
+          <template v-for="(item, x) in col">
+            <input
+              class="h-full w-full p-2.5 text-base outline-1 outline text-center text-4xl board-cell"
+              :data-x="x"
+              :data-y="y"
+              :value="item"
+              :id="`board-${x}-${y}`"
+              :class="{ 'is-init': boardRecord[y][x] !== '' }"
+              @input="
+                (event: Event) => {
+                
+                  board[y][x] = ((event.target as HTMLInputElement).value
+                  .replace(/[^0-9]/g, '').split('')[0]||'')
+                  .toString() ;
+                   (event.target as HTMLInputElement).value = ((event.target as HTMLInputElement).value
+                  .replace(/[^0-9]/g, '').split('')[0]||'')
+                  .toString() ;
+                }
+              "
+              @keydown="(event: KeyboardEvent) => {
+                focusNext(x, y,event)
+                }"
+              @click="selectAll(x, y)"
+            />
+          </template>
+        </template>
+      </div>
     </div>
-    <div id="userBoard" class="inline-grid grid-rows-9 grid-cols-9">
-      <input
-        v-for="(item, index) in new Array(81).fill(0)"
-        type="number"
-        min="1"
-        max="9"
-        class="h-8 w-8 p-2.5 text-base outline-1 outline outline-gray-400"
-      />
-    </div>
+    <button
+      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-20 mt-5"
+      @click="solve()"
+      >solve</button
+    >
+    <button
+      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-20 mt-5"
+      @click="undo()"
+      >undo solve</button
+    >
+
+    <button
+      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-20 mt-5"
+      @click="reset()"
+      >reset</button
+    >
   </div>
 </template>
 
 <style lang="scss" scoped>
-  .version {
-    display: inline-block;
-    padding: 6px;
-    margin-left: 6px;
-    border-radius: 10px;
+  .board-cell {
+    cursor: pointer;
+    outline-color: #bec6d4;
+    color: #0072e3;
+    &.is-init {
+      color: #344861;
+    }
+    &:focus {
+      background-color: #bbdefb;
+      caret-color: #bbdefb;
+    }
+    &::selection {
+      background: #bbdefb;
+    }
+
+    &::-moz-selection {
+      background: #bbdefb;
+    }
   }
 </style>
