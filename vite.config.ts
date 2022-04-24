@@ -18,12 +18,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         '@components': resovePath('./src/components'),
         '@utils': resovePath('./src/utils'),
         '@api': resovePath('./src/api'),
-        
       },
     },
     // plugins
     plugins: createVitePlugins(isBuild),
 
+    base: '/sudok-solver/',
 
     // server
     server: {
@@ -37,8 +37,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
     // build
     build: {
+      outDir: 'docs',
       target: 'es2015',
-      minify:'terser',
+      minify: 'terser',
       terserOptions: {
         compress: {
           keep_infinity: true,
