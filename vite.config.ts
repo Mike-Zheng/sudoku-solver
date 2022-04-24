@@ -23,7 +23,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     // plugins
     plugins: createVitePlugins(isBuild),
 
-    base: '/sudok-solver/',
+    base: '/sudoku-solver/',
 
     // server
     server: {
