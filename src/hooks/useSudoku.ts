@@ -3,7 +3,7 @@ import Sudoku from '@/utils/sudoku.js'
 const genInitialBoard = () => {
   return [...new Array(9)].map(() => [...new Array(9).fill('')])
 }
-export default function useSudoku(initValue = false) {
+export default function useSudoku() {
   const board = ref(genInitialBoard())
   const boardRecord = ref(genInitialBoard())
 
@@ -14,6 +14,14 @@ export default function useSudoku(initValue = false) {
   const reset = () => {
     board.value = genInitialBoard()
     boardRecord.value = genInitialBoard()
+  }
+
+  const setVal = (i: number, j: number, value: string) => {
+    board.value[i][j] = value
+  }
+
+  const getVal = (i: number, j: number) => {
+    return board.value[i][j]
   }
 
   const solve = () => {
@@ -43,5 +51,7 @@ export default function useSudoku(initValue = false) {
     undo,
     reset,
     solve,
+    setVal,
+    getVal
   }
 }

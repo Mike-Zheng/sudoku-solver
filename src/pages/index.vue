@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import useSudoku from '@/hooks/useSudoku'
 
-  const { board, boardRecord, undo, reset, solve } = useSudoku()
+  const { board, boardRecord, undo, reset, solve, setVal, getVal } = useSudoku()
 
   const selectAll = (i: number, j: number) => {
     let curX = i
@@ -11,6 +11,14 @@
     }, 0)
   }
 
+  const inputChange = (i: number, j: number, event: Event) => {
+    let value = (
+      (event.target as HTMLInputElement).value.replace(/[^0-9]/g, '').split('')[0] || ''
+    ).toString()
+    setVal(i, j, value)
+    ;(event.target as HTMLInputElement).value = value
+  }
+
   const focusNext = (i: number, j: number, event: KeyboardEvent) => {
     let curX = i
     let curY = j
@@ -18,8 +26,8 @@
 
     switch (event.key) {
       case 'Backspace':
-        if (board.value[j][i] !== '') {
-          board.value[j][i] = ''
+        if (getVal(j, i) !== '') {
+          setVal(j, i, '')
         } else {
           if (curX > 0) {
             curX--
@@ -118,20 +126,8 @@
               :value="item"
               :id="`board-${x}-${y}`"
               :class="{ 'is-init': boardRecord[y][x] !== '' }"
-              @input="
-                (event: Event) => {
-                
-                  board[y][x] = ((event.target as HTMLInputElement).value
-                  .replace(/[^0-9]/g, '').split('')[0]||'')
-                  .toString() ;
-                   (event.target as HTMLInputElement).value = ((event.target as HTMLInputElement).value
-                  .replace(/[^0-9]/g, '').split('')[0]||'')
-                  .toString() ;
-                }
-              "
-              @keydown="(event: KeyboardEvent) => {
-                focusNext(x, y,event)
-                }"
+              @input="(event: Event) => inputChange(y,x,event)"
+              @keydown="(event: KeyboardEvent) =>focusNext(x, y,event)"
               @click="selectAll(x, y)"
             />
           </template>
