@@ -1,40 +1,7 @@
 <script setup lang="ts">
-  import Sudoku from '@/utils/sudoku.js'
-  const getInitialBoard = () => {
-    return [...new Array(9)].map(() => [...new Array(9).fill('')])
-  }
-  const board = ref(getInitialBoard())
-  const boardRecord = ref(getInitialBoard())
+  import useSudoku from '@/hooks/useSudoku'
 
-  const undo = () => {
-    board.value = boardRecord.value
-  }
-
-  const reset = () => {
-    board.value = getInitialBoard()
-    boardRecord.value = getInitialBoard()
-  }
-
-  const solve = () => {
-    boardRecord.value = [...board.value.map((item) => [...item])]
-    let boardProcessed = board.value.map((row) => row.map((item) => item || '.'))
-    console.log(boardProcessed)
-    let boardString = Sudoku.board_grid_to_string(boardProcessed)
-    console.log(boardString)
-    try {
-      let slove = Sudoku.solve(boardString)
-      if (!slove) {
-        throw new Error('wrong')
-      }
-      console.log(slove)
-      let sloveGrid = Sudoku.board_string_to_grid(slove)
-      console.log(sloveGrid)
-      board.value = sloveGrid
-    } catch (e) {
-      console.log(e)
-      reset()
-    }
-  }
+  const { board, boardRecord, undo, reset, solve } = useSudoku()
 
   const selectAll = (i: number, j: number) => {
     let curX = i
