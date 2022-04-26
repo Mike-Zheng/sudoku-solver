@@ -120,6 +120,7 @@
         <template v-for="(col, y) in board">
           <template v-for="(item, x) in col">
             <input
+              name="board-cell"
               class="h-full w-full p-2.5 text-base outline-1 outline text-center text-4xl board-cell"
               :data-x="x"
               :data-y="y"
