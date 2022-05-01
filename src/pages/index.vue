@@ -7,16 +7,16 @@
     let curX = i
     let curY = j
     window.setTimeout(function () {
-      ;(document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement).select()
+      var target = document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement
+      target.select()
     }, 0)
   }
 
   const inputChange = (i: number, j: number, event: Event) => {
-    let value = (
-      (event.target as HTMLInputElement).value.replace(/[^0-9]/g, '').split('')[0] || ''
-    ).toString()
+    var target = event.target as HTMLInputElement
+    let value = (target.value.replace(/[^0-9]/g, '').split('')[0] || '').toString()
     setVal(i, j, value)
-    ;(event.target as HTMLInputElement).value = value
+    target.value = value
   }
 
   const focusNext = (i: number, j: number, event: KeyboardEvent) => {
@@ -97,8 +97,9 @@
     }
 
     window.setTimeout(function () {
-      ;(document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement).focus()
-      ;(document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement).select()
+      var target = document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement
+      target.focus()
+      target.select()
     }, 0)
   }
 </script>
