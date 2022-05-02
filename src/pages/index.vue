@@ -113,7 +113,7 @@
   }
 </script>
 <template>
-  <div style="max-width: 400px" class="mx-auto">
+  <div style="max-width: 400px" class="mx-auto disable-dbl-tap-zoom">
     <div class="pt-5 mx-auto text-center text-slate-300 text-2xl"> Sudoku Solver</div>
     <div
       class="relative sm:h-600 sm:w-600 h-screen w-screen mx-auto mt-8 max-w-[400px] max-h-[400px]"
@@ -139,7 +139,7 @@
             <input
               inputmode="none"
               name="board-cell"
-              class="h-full font-semibold w-full text-base outline-1 outline text-center text-3xl sm:text-4xl board-cell"
+              class="h-full font-semibold w-full text-base outline-1 outline text-center text-2xl sm:text-4xl board-cell"
               :data-x="x"
               :data-y="y"
               :value="item"
@@ -170,7 +170,6 @@
       <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="reset()">
         <SvgIcon name="svg-trash" size="48" />
       </button>
-
     </div>
     <div class="keyboard">
       <ul>
@@ -200,6 +199,9 @@
     color: #0072e3;
     outline-width: 2px;
     outline-offset: -1px;
+    font-size: 1.875rem;
+    line-height: 2rem;
+
     &.is-init {
       color: #344861;
     }
@@ -250,5 +252,8 @@
         }
       }
     }
+  }
+  .disable-dbl-tap-zoom {
+    touch-action: manipulation;
   }
 </style>
