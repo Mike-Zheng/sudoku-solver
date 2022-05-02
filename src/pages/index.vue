@@ -113,25 +113,23 @@
   }
 </script>
 <template>
-  <div style="max-width: 400px" class="mx-auto disable-dbl-tap-zoom">
-    <div class="pt-5 mx-auto text-center text-slate-300 text-2xl"> Sudoku Solver</div>
+  <div style="max-width: 400px" class="mx-auto disable-dbl-tap-zoom select-none">
+    <div class="pt-5 mx-auto text-center text-slate-300 text-2xl hidden sm:block">
+      Sudoku Solver</div
+    >
     <div
       class="relative sm:h-600 sm:w-600 h-screen w-screen mx-auto mt-8 max-w-[400px] max-h-[400px]"
     >
       <div class="inline-grid absolute pointer-events-none grid-rows-3 grid-cols-3 h-full w-full">
-        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2 rounded-tl-3xl" />
-        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2" />
-        <div
-          class="h-full w-full border border-[#222222] border-t-2 border-l-2 border-r-2 rounded-tr-3xl"
-        />
-        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2" />
-        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2" />
-        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2 border-r-2" />
-        <div
-          class="h-full w-full border border-[#222222] border-t-2 border-l-2 border-b-2 rounded-bl-3xl"
-        />
-        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2 border-b-2" />
-        <div class="h-full w-full border border-[#222222] border-2 rounded-br-3xl" />
+        <div class="h-full w-full border-2 border-[#222222] border-t-4 border-l-4 rounded-tl-3xl" />
+        <div class="h-full w-full border-2 border-[#222222] border-t-4" />
+        <div class="h-full w-full border-2 border-[#222222] border-t-4 border-r-4 rounded-tr-3xl" />
+        <div class="h-full w-full border-2 border-[#222222] border-l-4" />
+        <div class="h-full w-full border-2 border-[#222222]" />
+        <div class="h-full w-full border-2 border-[#222222] border-r-4" />
+        <div class="h-full w-full border-2 border-[#222222] border-l-4 border-b-4 rounded-bl-3xl" />
+        <div class="h-full w-full border-2 border-[#222222] border-b-4" />
+        <div class="h-full w-full border-2 border-[#222222] border-r-4 border-b-4 rounded-br-3xl" />
       </div>
       <div id="userBoard" class="inline-grid grid-rows-9 grid-cols-9 h-full w-full">
         <template v-for="(col, y) in board">
@@ -139,14 +137,14 @@
             <input
               inputmode="none"
               name="board-cell"
-              class="h-full font-semibold w-full text-base outline-1 outline text-center text-2xl sm:text-4xl board-cell"
+              class="h-full w-full cursor-pointer font-semibold outline-none rounded-none text-center text-sm sm:text-4xl board-cell"
               :data-x="x"
               :data-y="y"
               :value="item"
               :id="`board-${x}-${y}`"
               :class="{
                 'board-cell--focus': x === cur[0] && y === cur[1],
-                'is-init': boardRecord[y][x] !== '',
+                'board-cell--inital-state': boardRecord[y][x] !== '',
                 'rounded-tl-3xl': y === 0 && x === 0,
                 'rounded-tr-3xl': y === 0 && x === 8,
                 'rounded-bl-3xl': y === 8 && x === 0,
@@ -160,18 +158,8 @@
         </template>
       </div>
     </div>
-    <div class="buttons">
-      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="undo()">
-        <SvgIcon name="svg-undo" size="48" />
-      </button>
-      <!-- <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50">
-        <SvgIcon name="svg-redo" size="48" />
-      </button> -->
-      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="reset()">
-        <SvgIcon name="svg-trash" size="48" />
-      </button>
-    </div>
-    <div class="keyboard">
+
+    <div class="keyboard mt-5">
       <ul>
         <li v-for="(val, y) in 9">
           <button @click="inputKeyboard(val.toString())">{{ val }}</button>
@@ -181,6 +169,14 @@
           <button @click="inputKeyboard('')">-</button>
         </li>
       </ul>
+    </div>
+    <div class="buttons">
+      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="undo()">
+        <SvgIcon name="svg-undo" size="48" />
+      </button>
+      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="reset()">
+        <SvgIcon name="svg-trash" size="48" />
+      </button>
     </div>
     <div class="w-[90%] mx-auto">
       <button
@@ -194,17 +190,13 @@
 
 <style lang="scss" scoped>
   .board-cell {
-    cursor: pointer;
-    outline-color: #e7e7e7;
-    color: #0072e3;
-    outline-width: 2px;
-    outline-offset: -1px;
-    font-size: 1.875rem;
-    line-height: 2rem;
+    border: solid 1px #e7e7e7;
+    color: #344861;
 
-    &.is-init {
-      color: #344861;
+    &.board-cell--inital-state {
+      color: #0072e3;
     }
+
     &.board-cell--focus,
     &:focus {
       background-color: #bbdefb;
