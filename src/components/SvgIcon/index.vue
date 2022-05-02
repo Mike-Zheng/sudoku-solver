@@ -32,12 +32,18 @@ const calsses = computed(() => {
 const fontSize = reactive({ default: '32px', small: '20px', large: '48px' })
 </script>
 <style lang="scss" scoped>
-/* .svg-icon-spin {
-  width: v-bind('fontSize.default');
+.svg-icon-spin {
+  /* width: v-bind('fontSize.default');
   height: v-bind('fontSize.default');
   fill: v-bind(color);
   vertical-align: middle;
-  color: v-bind(color);
+  color: v-bind(color); */
+
+   width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
   &.sdms-size-small {
     font-size: v-bind('fontSize.small');
     height: v-bind('fontSize.small');
@@ -46,5 +52,5 @@ const fontSize = reactive({ default: '32px', small: '20px', large: '48px' })
     font-size: v-bind('fontSize.large');
     height: v-bind('fontSize.large');
   }
-} */
+}
 </style>

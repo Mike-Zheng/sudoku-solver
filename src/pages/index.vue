@@ -105,29 +105,42 @@
 </script>
 <template>
   <div>
-    <div class="relative" style="height: 600px; width: 600px">
+    <div>
+      Sudoku solver<SvgIcon name="svg-github" size="48" style="margin-right: 10px;" />
+    </div>
+    <div class="relative sm:h-600 sm:w-600 h-screen w-screen mx-auto mt-10">
       <div class="inline-grid absolute pointer-events-none grid-rows-3 grid-cols-3 h-full w-full">
-        <div class="h-full w-full border border-black" />
-        <div class="h-full w-full border border-black" />
-        <div class="h-full w-full border border-black" />
-        <div class="h-full w-full border border-black" />
-        <div class="h-full w-full border border-black" />
-        <div class="h-full w-full border border-black" />
-        <div class="h-full w-full border border-black" />
-        <div class="h-full w-full border border-black" />
-        <div class="h-full w-full border border-black" />
+        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2 rounded-tl-3xl" />
+        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2" />
+        <div
+          class="h-full w-full border border-[#222222] border-t-2 border-l-2 border-r-2 rounded-tr-3xl"
+        />
+        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2" />
+        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2" />
+        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2 border-r-2" />
+        <div
+          class="h-full w-full border border-[#222222] border-t-2 border-l-2 border-b-2 rounded-bl-3xl"
+        />
+        <div class="h-full w-full border border-[#222222] border-t-2 border-l-2 border-b-2" />
+        <div class="h-full w-full border border-[#222222] border-2 rounded-br-3xl" />
       </div>
       <div id="userBoard" class="inline-grid grid-rows-9 grid-cols-9 h-full w-full">
         <template v-for="(col, y) in board">
           <template v-for="(item, x) in col">
             <input
               name="board-cell"
-              class="h-full w-full p-2.5 text-base outline-1 outline text-center text-4xl board-cell"
+              class="h-full font-semibold w-full text-base outline-1 outline text-center text-2xl sm:text-4xl board-cell "
               :data-x="x"
               :data-y="y"
               :value="item"
               :id="`board-${x}-${y}`"
-              :class="{ 'is-init': boardRecord[y][x] !== '' }"
+              :class="{
+                'is-init': boardRecord[y][x] !== '',
+                'rounded-tl-3xl': y === 0 && x === 0,
+                'rounded-tr-3xl': y === 0 && x === 8,
+                'rounded-bl-3xl': y === 8 && x === 0,
+                'rounded-br-3xl': y === 8 && x === 8,
+              }"
               @input="(event: Event) => inputChange(y,x,event)"
               @keydown="(event: KeyboardEvent) =>focusNext(x, y,event)"
               @click="selectAll(x, y)"
@@ -158,8 +171,10 @@
 <style lang="scss" scoped>
   .board-cell {
     cursor: pointer;
-    outline-color: #bec6d4;
+    outline-color: #e7e7e7;
     color: #0072e3;
+    outline-width: 2px;
+    outline-offset: -1px;
     &.is-init {
       color: #344861;
     }
