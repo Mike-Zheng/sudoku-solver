@@ -103,12 +103,13 @@
   }
 
   const focus = (curX: number, curY: number): void => {
+    cur.value = [curX, curY]
     window.setTimeout(function () {
       var target = document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement
-      cur.value = [curX, curY]
+
       target.focus()
       target.select()
-    }, 0)
+    }, 200)
   }
 </script>
 <template>
@@ -136,8 +137,9 @@
         <template v-for="(col, y) in board">
           <template v-for="(item, x) in col">
             <input
+              inputmode="none"
               name="board-cell"
-              class="h-full font-semibold w-full text-base outline-1 outline text-center text-2xl sm:text-4xl board-cell"
+              class="h-full font-semibold w-full text-base outline-1 outline text-center text-3xl sm:text-4xl board-cell"
               :data-x="x"
               :data-y="y"
               :value="item"
@@ -159,21 +161,16 @@
       </div>
     </div>
     <div class="buttons">
-      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50">
+      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="undo()">
         <SvgIcon name="svg-undo" size="48" />
       </button>
-      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50">
+      <!-- <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50">
         <SvgIcon name="svg-redo" size="48" />
-      </button>
+      </button> -->
       <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="reset()">
         <SvgIcon name="svg-trash" size="48" />
       </button>
-      <!-- <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="solve()">
-        <SvgIcon name="svg-arrow-right-o" size="48" />
-      </button> -->
-      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="undo()">
-        <SvgIcon name="svg-arrow-left-o" size="48" />
-      </button>
+
     </div>
     <div class="keyboard">
       <ul>
@@ -224,6 +221,7 @@
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+    margin-bottom: 20px;
   }
   .tool-button {
     text-align: center;
@@ -232,7 +230,7 @@
     background-color: #f0f5f9;
     border-radius: 10px;
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%);
-    padding: 0 15px;
+    padding: 0 25px;
   }
 
   .keyboard {
