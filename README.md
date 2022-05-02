@@ -15,5 +15,9 @@
     
 Developing.....
     
+
+    https://github.com/astrit/css.gg
+
+    https://dribbble.com/shots/11143463-Sudoku-Game-Redesign
     
 ## Feature
