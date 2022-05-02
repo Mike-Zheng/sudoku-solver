@@ -1,11 +1,19 @@
 <script setup lang="ts">
   import useSudoku from '@/hooks/useSudoku'
 
+  const cur = ref([0, 0])
+
   const { board, boardRecord, undo, reset, solve, setVal, getVal } = useSudoku()
+
+  const inputKeyboard = (val: string) => {
+    setVal(cur.value[1], cur.value[0], val)
+    focusNext(cur.value[0], cur.value[1], new KeyboardEvent('keydown'))
+  }
 
   const selectAll = (i: number, j: number) => {
     let curX = i
     let curY = j
+    cur.value = [i, j]
     window.setTimeout(function () {
       var target = document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement
       target.select()
@@ -90,25 +98,25 @@
           curX = 0
           curY++
         }
-        if (i == 8 && j == 8) {
-          // button foucs
-        } else {
-        }
     }
+    focus(curX, curY)
+  }
 
+  const focus = (curX: number, curY: number): void => {
     window.setTimeout(function () {
       var target = document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement
+      cur.value = [curX, curY]
       target.focus()
       target.select()
     }, 0)
   }
 </script>
 <template>
-  <div>
-    <div>
-      Sudoku solver<SvgIcon name="svg-github" size="48" style="margin-right: 10px;" />
-    </div>
-    <div class="relative sm:h-600 sm:w-600 h-screen w-screen mx-auto mt-10">
+  <div style="max-width: 400px" class="mx-auto">
+    <div class="pt-5 mx-auto text-center text-slate-300 text-2xl"> Sudoku Solver</div>
+    <div
+      class="relative sm:h-600 sm:w-600 h-screen w-screen mx-auto mt-8 max-w-[400px] max-h-[400px]"
+    >
       <div class="inline-grid absolute pointer-events-none grid-rows-3 grid-cols-3 h-full w-full">
         <div class="h-full w-full border border-[#222222] border-t-2 border-l-2 rounded-tl-3xl" />
         <div class="h-full w-full border border-[#222222] border-t-2 border-l-2" />
@@ -129,12 +137,13 @@
           <template v-for="(item, x) in col">
             <input
               name="board-cell"
-              class="h-full font-semibold w-full text-base outline-1 outline text-center text-2xl sm:text-4xl board-cell "
+              class="h-full font-semibold w-full text-base outline-1 outline text-center text-2xl sm:text-4xl board-cell"
               :data-x="x"
               :data-y="y"
               :value="item"
               :id="`board-${x}-${y}`"
               :class="{
+                'board-cell--focus': x === cur[0] && y === cur[1],
                 'is-init': boardRecord[y][x] !== '',
                 'rounded-tl-3xl': y === 0 && x === 0,
                 'rounded-tr-3xl': y === 0 && x === 8,
@@ -149,22 +158,41 @@
         </template>
       </div>
     </div>
-    <button
-      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-20 mt-5"
-      @click="solve()"
-      >solve</button
-    >
-    <button
-      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-20 mt-5"
-      @click="undo()"
-      >undo solve</button
-    >
+    <div class="buttons">
+      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50">
+        <SvgIcon name="svg-undo" size="48" />
+      </button>
+      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50">
+        <SvgIcon name="svg-redo" size="48" />
+      </button>
+      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="reset()">
+        <SvgIcon name="svg-trash" size="48" />
+      </button>
+      <!-- <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="solve()">
+        <SvgIcon name="svg-arrow-right-o" size="48" />
+      </button> -->
+      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="undo()">
+        <SvgIcon name="svg-arrow-left-o" size="48" />
+      </button>
+    </div>
+    <div class="keyboard">
+      <ul>
+        <li v-for="(val, y) in 9">
+          <button @click="inputKeyboard(val.toString())">{{ val }}</button>
+        </li>
 
-    <button
-      class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-20 mt-5"
-      @click="reset()"
-      >reset</button
-    >
+        <li>
+          <button @click="inputKeyboard('')">-</button>
+        </li>
+      </ul>
+    </div>
+    <div class="w-[90%] mx-auto">
+      <button
+        class="bg-blue-500 shadow-lg shadow-blue-500/50 rounded-2xl text-white w-full text-2xl p-2"
+        @click="solve()"
+        >Solve</button
+      >
+    </div>
   </div>
 </template>
 
@@ -178,6 +206,7 @@
     &.is-init {
       color: #344861;
     }
+    &.board-cell--focus,
     &:focus {
       background-color: #bbdefb;
       caret-color: #bbdefb;
@@ -188,6 +217,40 @@
 
     &::-moz-selection {
       background: #bbdefb;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  .tool-button {
+    text-align: center;
+    font-size: 40px;
+    color: #3a4b62;
+    background-color: #f0f5f9;
+    border-radius: 10px;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%);
+    padding: 0 15px;
+  }
+
+  .keyboard {
+    ul {
+      li {
+        display: inline-block;
+        width: 20%;
+        text-align: center;
+        padding: 10px;
+        button {
+          background-color: #f0f5f9;
+          width: 80%;
+          font-size: 30px;
+          font-weight: 600;
+          border-radius: 5px;
+          color: #3a4b62;
+        }
+      }
     }
   }
 </style>
