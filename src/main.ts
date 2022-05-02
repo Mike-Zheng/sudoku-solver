@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import piniaStore from './store'
+import 'normalize.css';
 import './index.css'
 // 額外引入圖標庫
 

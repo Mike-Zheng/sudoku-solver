@@ -16,6 +16,7 @@
     "@vueuse/components": "^8.1.2",
     "@vueuse/core": "^8.1.2",
     "axios": "^0.26.1",
+    "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.12",
     "qs": "^6.10.3",
