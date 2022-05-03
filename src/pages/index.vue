@@ -113,7 +113,10 @@
 
   const solveSudoku = (): void => {
     const res = solve()
-    toast("I'm a toast!")
+    if (!res.status) {
+      toast(res.error)
+    }
+
     console.log(res)
   }
 </script>
