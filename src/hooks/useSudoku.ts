@@ -24,25 +24,54 @@ export default function useSudoku() {
     return board.value[i][j]
   }
 
-  const solve = () => {
+  type Result = {
+    status: number
+    error: string
+  }
+  const solve = (): Result => {
     boardRecord.value = [...board.value.map((item) => [...item])]
     let boardProcessed = board.value.map((row) => row.map((item) => item || '.'))
     console.log(boardProcessed)
     let boardString = Sudoku.board_grid_to_string(boardProcessed)
     console.log(boardString)
+    let result: Result = {
+      status: 0,
+      error: '',
+    }
     try {
       let slove = Sudoku.solve(boardString)
+
       if (!slove) {
-        throw new Error('wrong')
+        throw 'Input error'
       }
-      console.log(slove)
       let sloveGrid = Sudoku.board_string_to_grid(slove)
       console.log(sloveGrid)
       board.value = sloveGrid
     } catch (e) {
       console.log(e)
+      switch (e) {
+        case 'Too few givens. Minimum givens is 17':
+          result = {
+            status: 0,
+            error: e,
+          }
+          break
+        case 'Input error':
+          result = {
+            status: -1,
+            error: e,
+          }
+          break
+        default:
+          result = {
+            status: -1,
+            error: 'Unknow error',
+          }
+      }
       reset()
     }
+
+    return result
   }
 
   return {
@@ -52,6 +81,6 @@ export default function useSudoku() {
     reset,
     solve,
     setVal,
-    getVal
+    getVal,
   }
 }
