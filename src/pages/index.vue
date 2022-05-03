@@ -106,14 +106,13 @@
     cur.value = [curX, curY]
     window.setTimeout(function () {
       var target = document.getElementById(`board-${curX}-${curY}`) as HTMLFormElement
-
       target.focus()
       target.select()
-    }, 200)
+    }, 10)
   }
 </script>
 <template>
-  <div style="max-width: 400px" class="mx-auto disable-dbl-tap-zoom select-none">
+  <div style="max-width: 400px" class="mx-auto touch-manipulation select-none">
     <div class="pt-5 mx-auto text-center text-slate-300 text-2xl hidden sm:block">
       Sudoku Solver</div
     >
@@ -137,7 +136,7 @@
             <input
               inputmode="none"
               name="board-cell"
-              class="h-full w-full cursor-pointer font-semibold outline-none rounded-none text-center text-sm sm:text-4xl board-cell"
+              class="h-full w-full cursor-pointer caret-transparent font-semibold outline-none rounded-none text-center text-sm sm:text-4xl board-cell"
               :data-x="x"
               :data-y="y"
               :value="item"
@@ -161,26 +160,41 @@
 
     <div class="keyboard mt-5">
       <ul>
-        <li v-for="(val, y) in 9">
-          <button @click="inputKeyboard(val.toString())">{{ val }}</button>
+        <li v-for="(val, y) in 9" class="inline-block text-center p-2 w-1/5">
+          <button
+            class="bg-[#f0f5f9] w-4/5 text-3xl leading-normal font-semibold rounded-md text-[#3a4b62] transition-all hover:text-[#0072e3] hover:scale-110"
+            @click="inputKeyboard(val.toString())"
+            >{{ val }}</button
+          >
         </li>
 
-        <li>
-          <button @click="inputKeyboard('')">-</button>
+        <li class="inline-block text-center p-2 w-1/5">
+          <button
+            class="bg-[#f0f5f9] w-4/5 text-3xl leading-normal font-semibold rounded-md text-[#3a4b62] transition-all hover:text-[#0072e3] hover:scale-110"
+            @click="inputKeyboard('')"
+            >-</button
+          >
         </li>
       </ul>
     </div>
-    <div class="buttons">
-      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="undo()">
-        <SvgIcon name="svg-undo" size="48" />
+
+    <div class="flex my-5 place-content-around">
+      <button
+        class="text-center text-4xl rounded-lg bg-[#f0f5f9] shadow-2xl px-16 transition-all hover:text-[#0072e3] hover:scale-110"
+        @click="undo()"
+      >
+        <SvgIcon name="svg-undo" />
       </button>
-      <button class="tool-button bg-blue-500 shadow-lg shadow-blue-500/50" @click="reset()">
-        <SvgIcon name="svg-trash" size="48" />
+      <button
+        class="text-center text-4xl rounded-lg bg-[#f0f5f9] shadow-2xl px-16 transition-all hover:text-[#0072e3] hover:scale-110"
+        @click="reset()"
+      >
+        <SvgIcon name="svg-trash" />
       </button>
     </div>
     <div class="w-[90%] mx-auto">
       <button
-        class="bg-blue-500 shadow-lg shadow-blue-500/50 rounded-2xl text-white w-full text-2xl p-2"
+        class="bg-blue-500 shadow-lg shadow-blue-500/50 rounded-2xl text-white w-full text-2xl mt-2 p-2 transition-all hover:scale-110"
         @click="solve()"
         >Solve</button
       >
@@ -192,15 +206,12 @@
   .board-cell {
     border: solid 1px #e7e7e7;
     color: #344861;
-
     &.board-cell--inital-state {
       color: #0072e3;
     }
-
     &.board-cell--focus,
     &:focus {
       background-color: #bbdefb;
-      caret-color: #bbdefb;
     }
     &::selection {
       background: #bbdefb;
@@ -209,43 +220,5 @@
     &::-moz-selection {
       background: #bbdefb;
     }
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .tool-button {
-    text-align: center;
-    font-size: 40px;
-    color: #3a4b62;
-    background-color: #f0f5f9;
-    border-radius: 10px;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%);
-    padding: 0 25px;
-  }
-
-  .keyboard {
-    ul {
-      li {
-        display: inline-block;
-        width: 20%;
-        text-align: center;
-        padding: 10px;
-        button {
-          background-color: #f0f5f9;
-          width: 80%;
-          font-size: 30px;
-          font-weight: 600;
-          border-radius: 5px;
-          color: #3a4b62;
-        }
-      }
-    }
-  }
-  .disable-dbl-tap-zoom {
-    touch-action: manipulation;
   }
 </style>
