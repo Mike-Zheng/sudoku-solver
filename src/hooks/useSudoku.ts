@@ -25,7 +25,7 @@ export default function useSudoku() {
   }
 
   type Result = {
-    status: number
+    status: boolean
     error: string
   }
   const solve = (): Result => {
@@ -35,12 +35,11 @@ export default function useSudoku() {
     let boardString = Sudoku.board_grid_to_string(boardProcessed)
     console.log(boardString)
     let result: Result = {
-      status: 0,
+      status: true,
       error: '',
     }
     try {
       let slove = Sudoku.solve(boardString)
-
       if (!slove) {
         throw 'Input error'
       }
@@ -49,24 +48,16 @@ export default function useSudoku() {
       board.value = sloveGrid
     } catch (e) {
       console.log(e)
-      switch (e) {
-        case 'Too few givens. Minimum givens is 17':
-          result = {
-            status: 0,
-            error: e,
-          }
-          break
-        case 'Input error':
-          result = {
-            status: -1,
-            error: e,
-          }
-          break
-        default:
-          result = {
-            status: -1,
-            error: 'Unknow error',
-          }
+      if (typeof e === 'string') {
+        result = {
+          status: false,
+          error: e,
+        }
+      } else {
+        result = {
+          status: false,
+          error: 'Unknow error',
+        }
       }
       reset()
     }

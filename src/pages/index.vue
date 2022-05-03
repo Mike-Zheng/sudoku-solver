@@ -2,7 +2,7 @@
   import useSudoku from '@/hooks/useSudoku'
 
   const cur = ref([0, 0])
-
+  const toast = inject('$toast') as (arg: string) => void
   const { board, boardRecord, undo, reset, solve, setVal, getVal } = useSudoku()
 
   const inputKeyboard = (val: string) => {
@@ -110,6 +110,12 @@
       target.select()
     }, 10)
   }
+
+  const solveSudoku = (): void => {
+    const res = solve()
+    toast("I'm a toast!")
+    console.log(res)
+  }
 </script>
 <template>
   <div style="max-width: 400px" class="mx-auto touch-manipulation select-none">
@@ -136,7 +142,7 @@
             <input
               inputmode="none"
               name="board-cell"
-              class="h-full w-full cursor-pointer caret-transparent font-semibold outline-none rounded-none text-center text-sm sm:text-4xl board-cell"
+              class="select-none h-full w-full cursor-pointer caret-transparent font-semibold outline-none rounded-none text-center text-sm sm:text-4xl board-cell"
               :data-x="x"
               :data-y="y"
               :value="item"
@@ -195,7 +201,7 @@
     <div class="w-[90%] mx-auto">
       <button
         class="bg-blue-500 shadow-lg shadow-blue-500/50 rounded-2xl text-white w-full text-2xl mt-2 p-2 transition-all hover:scale-110"
-        @click="solve()"
+        @click="solveSudoku()"
         >Solve</button
       >
     </div>
@@ -212,6 +218,7 @@
     &.board-cell--focus,
     &:focus {
       background-color: #bbdefb;
+      border-color: #bbdefb;
     }
     &::selection {
       background: #bbdefb;
