@@ -25,6 +25,9 @@
 https://mike-zheng.github.io/sudoku-solver/
 
 
+
+![](public/app.png)
+
 ## Inspired by
 
 https://dribbble.com/shots/11143463-Sudoku-Game-Redesign
