@@ -4,6 +4,7 @@
  */
 import type { Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { VitePWA } from 'vite-plugin-pwa'
 import { ConfigSvgIconsPlugin } from './svgIcons'
 import { AutoRegistryComponents } from './component'
 import { AutoImportDeps } from './autoImport'
@@ -14,6 +15,8 @@ export function createVitePlugins(isBuild: boolean) {
   const vitePlugins: (Plugin | Plugin[])[] = [
     // vue支持
     vue(),
+    // pwa
+    VitePWA({}),
     // 自動按需引入組件
     AutoRegistryComponents(),
     // 自動按需引入依賴
