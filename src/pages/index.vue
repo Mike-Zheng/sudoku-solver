@@ -123,8 +123,11 @@
 <template>
   <div style="max-width: 400px" class="mx-auto touch-manipulation select-none">
     <div class="pt-5 mx-auto text-center text-slate-300 text-2xl hidden sm:block">
-      Sudoku Solver</div
-    >
+      <a href="https://github.com/Mike-Zheng/sudoku-solver">
+        <SvgIcon name="svg-logo" />
+        Sudoku Solver
+      </a>
+    </div>
     <div
       class="relative sm:h-600 sm:w-600 h-screen w-screen mx-auto mt-8 max-w-[400px] max-h-[400px]"
     >
@@ -187,7 +190,7 @@
       </ul>
     </div>
 
-    <div class="flex my-5 place-content-around">
+    <div class="flex my-3 place-content-around">
       <button
         class="text-center text-4xl rounded-lg bg-[#f0f5f9] shadow-2xl px-16 transition-all hover:text-[#0072e3] hover:scale-110"
         @click="undo()"
@@ -201,7 +204,7 @@
         <SvgIcon name="svg-trash" />
       </button>
     </div>
-    <div class="w-[90%] mx-auto">
+    <div class="w-[90%] mx-auto mb-5">
       <button
         class="bg-blue-500 shadow-lg shadow-blue-500/50 rounded-2xl text-white w-full text-2xl mt-2 p-2 transition-all hover:scale-110"
         @click="solveSudoku()"

@@ -44,6 +44,7 @@
     vertical-align: -0.15em;
     fill: currentColor;
     overflow: hidden;
+    display: inline-block;
     &.sdms-size-small {
       font-size: v-bind('fontSize.small');
       height: v-bind('fontSize.small');
