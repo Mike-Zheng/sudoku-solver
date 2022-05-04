@@ -1,5 +1,11 @@
 # Sudoku Solver
 
+<p align="center">
+  <a href="https://mike-zheng.github.io/sudoku-solver" target="_blank" rel="noopener noreferrer">
+    <p align="center"><img width="120" src="./public/apple-touch-icon-120x120.png" alt="五十音の学習ツール"></p>
+  </a>
+</p>
+
 <p align="center">  
     <img src="https://img.shields.io/badge/-Vue3-34495e?logo=vue.j" />
     <img src="https://img.shields.io/badge/-Vite2.7-646cff?logo=vite&logoColor=white" />
@@ -19,4 +25,15 @@ https://github.com/astrit/css.gg
 
 https://dribbble.com/shots/11143463-Sudoku-Game-Redesign
     
+
+
+icon
+
+```
+ npx vue-asset-generate -a logo.svg -o public 
+```
 ## Feature
+
+* ◻ unit test
+* ◻ pwa
+* 
