@@ -2,9 +2,12 @@
 
 <p align="center">
   <a href="https://mike-zheng.github.io/sudoku-solver" target="_blank" rel="noopener noreferrer">
-    <p align="center"><img width="120" src="./public/apple-touch-icon-120x120.png" alt="五十音の学習ツール"></p>
+    <p align="center"><img width="120" src="./public/apple-touch-icon-120x120.png" alt="sudoku-solver"></p>
   </a>
 </p>
+
+
+
 
 <p align="center">  
     <img src="https://img.shields.io/badge/-Vue3-34495e?logo=vue.j" />
@@ -17,22 +20,39 @@
     <img src="" alt="">
 <p>    
 
-    
-Developing.....
-    
+## Demo page
 
-https://github.com/astrit/css.gg
+https://mike-zheng.github.io/sudoku-solver/
+
+
+## Inspired by
 
 https://dribbble.com/shots/11143463-Sudoku-Game-Redesign
     
 
 
-icon
+
+## Assets
+
+- [css.gg](https://github.com/astrit/css.gg)
+
+
+## Develop
 
 ```
- npx vue-asset-generate -a logo.svg -o public 
+ npm install
 ```
-## Feature
+
+```
+ npm run dev
+```
+
+pwa assets generater
+
+```
+npx vue-asset-generate -a logo.svg -o public 
+```
+## Todo feature
 
 * ◻ unit test
 * ◻ pwa
