@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L80 0L80 80L0 80L0 0Z" id="path_1" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Untitled-2">
+    <g id="Mask-group">
+      <path d="M0 0L80 0L80 80L0 80L0 0Z" id="artboard_1" fill="none" fill-rule="evenodd" stroke="none" />
+      <g clip-path="url(#mask_1)">
+        <g id="Artboard" transform="translate(1 0)">
+          <path d="M0 0L80 0L80 80L0 80L0 0Z" id="artboard_1" fill="#FFFFFF" fill-opacity="0" fill-rule="evenodd" stroke="none" />
+          <path d="M4 5L24 5L24 25L4 25L4 5L4 5Z" id="Rectangle" fill="#98BDD4" fill-rule="evenodd" stroke="none" />
+          <path d="M54 30L74 30L74 50L54 50L54 30L54 30Z" id="Rectangle-6" fill="#98BDD4" fill-rule="evenodd" stroke="none" />
+          <path d="M4 55L24 55L24 75L4 75L4 55L4 55Z" id="Rectangle-7" fill="#98BDD4" fill-rule="evenodd" stroke="none" />
+          <path d="M54 55L74 55L74 75L54 75L54 55L54 55Z" id="Rectangle-9" fill="#98BDD4" fill-rule="evenodd" stroke="none" />
+          <path d="M29 55L49 55L49 75L29 75L29 55L29 55Z" id="Rectangle-8" fill="#98BDD4" fill-rule="evenodd" stroke="none" />
+          <path d="M29 5L49 5L49 25L29 25L29 5L29 5Z" id="Rectangle-2" fill="#98BDD4" fill-rule="evenodd" stroke="none" />
+          <path d="M54 5L74 5L74 25L54 25L54 5L54 5Z" id="Rectangle-3" fill="#98BDD4" fill-rule="evenodd" stroke="none" />
+          <path d="M4 30L24 30L24 50L4 50L4 30L4 30Z" id="Rectangle-4" fill="#98BDD4" fill-rule="evenodd" stroke="none" />
+          <path d="M24 5L49 5L49 15L24 15L24 5L24 5Z" id="Rectangle-10" fill="#3A4B62" fill-rule="evenodd" stroke="none" />
+          <path d="M4 40L24 40L24 50L4 50L4 40L4 40Z" id="Rectangle-13" fill="#3A4B62" fill-rule="evenodd" stroke="none" />
+          <path d="M54 30L74 30L74 40L54 40L54 30L54 30Z" id="Rectangle-15" fill="#3A4B62" fill-rule="evenodd" stroke="none" />
+          <path d="M29 65L54 65L54 75L29 75L29 65L29 65Z" id="Rectangle-14" fill="#3A4B62" fill-rule="evenodd" stroke="none" />
+          <path d="M4 25L14 25L14 50L4 50L4 25L4 25Z" id="Rectangle-11" fill="#3A4B62" fill-rule="evenodd" stroke="none" />
+          <path d="M64 35L74 35L74 55L64 55L64 35L64 35Z" id="Rectangle-12" fill="#3A4B62" fill-rule="evenodd" stroke="none" />
+          <path d="M4 25C4 25 4 25 4 25C4 19.4804 5.95067 14.7573 9.85206 10.8544C13.7534 6.95147 18.4827 5 24 5C24.0266 36.3049 24.0066 -4.61011 23.9801 24.9882C18.5012 24.9882 4 25 4 25ZM23.9544 24.998C23.9544 24.998 23.9547 16.5155 23.9544 15C21.2056 15 18.8593 15.976 16.9155 17.9282C14.9718 19.8804 14 22.2371 14 24.998C25.2523 25.0024 23.9544 24.998 23.9544 24.998L23.9544 24.998Z" id="Vector" fill="#3A4B62" fill-rule="evenodd" stroke="none" />
+          <path d="M74 55C74 55 74 55 74 55C74 60.5197 72.0506 65.2427 68.1516 69.1456C64.2527 73.0485 59.5264 75 54.0125 75C53.9861 43.6951 54.0059 84.6101 54.0325 55.0118C59.508 55.0118 74 55 74 55ZM54.0582 55.0019C54.0582 55.0019 54.0579 63.4844 54.0582 64.9999C56.8052 65 59.15 64.024 61.0926 62.0717C63.0351 60.1195 64.0063 57.7629 64.0063 55.0019C52.761 54.9975 54.0582 55.0019 54.0582 55.0019L54.0582 55.0019Z" id="Vector" fill="#3A4B62" fill-rule="evenodd" stroke="none" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
