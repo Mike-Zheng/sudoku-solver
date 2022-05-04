@@ -1,6 +1,6 @@
 {
   "name": "sudoku-solver",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "author": "mikezheng",
   "scripts": {
     "dev": "vite --mode development",
