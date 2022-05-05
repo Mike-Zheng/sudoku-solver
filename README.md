@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://mike-zheng.github.io/sudoku-solver" target="_blank" rel="noopener noreferrer">
-    <p align="center"><img width="120" src="./public/apple-touch-icon-120x120.png" alt="sudoku-solver"></p>
+    <p align="center"><img width="120" src="./public/logo.png" alt="sudoku-solver"></p>
   </a>
 </p>
 
@@ -53,7 +53,7 @@ https://dribbble.com/shots/11143463-Sudoku-Game-Redesign
 pwa assets generater
 
 ```
-npx vue-asset-generate -a logo.svg -o public 
+npx vue-asset-generate -a logo.svg -o public/icons 
 ```
 ## Todo feature
 
