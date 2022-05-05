@@ -30,8 +30,12 @@ https://mike-zheng.github.io/sudoku-solver/
 
 ## Inspired by
 
-https://dribbble.com/shots/11143463-Sudoku-Game-Redesign
-    
+- https://dribbble.com/shots/11143463-Sudoku-Game-Redesign
+
+- https://github.com/robatron/sudoku.js
+
+
+
 
 
 
@@ -60,3 +64,10 @@ npx vue-asset-generate -a logo.svg -o public/icons
 * ◻ unit test
 * ◻ pwa
 * 
+
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2022 mikezheng
